@@ -8,6 +8,6 @@ router.post('/createNote', authenticateuser, controller.createNote);
 router.put('/updatenote/:id', authenticateuser, controller.updatenote);
 router.get('/getallnotes', authenticateuser, controller.getAllNotes);
 router.delete('/deleteAll', controller.deleteAllUsers);
-router.delete('/deletenote', controller.deletenote);
+router.delete('/deletenote/:noteId', authenticateuser, controller.deletenote);
 
 module.exports = router;

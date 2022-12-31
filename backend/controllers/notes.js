@@ -24,28 +24,25 @@ module.exports = {
   updatenote: async (req, res) => {
     try {
       const { id } = req.params;
-      console.log(id);
       const { user } = req.user;
       const { title, description, tag } = req.body;
       const note = await Notes.findById(id);
       if (!note) {
         throw { status: 500, message: 'notes does not exist' };
       }
-      console.log(note);
       console.log(note.user.toString());
-      console.log(user._id);
       if (note.user.toString() !== user._id) {
         throw { status: 500, message: 'post does not belong to user' };
       }
       const updateNote = await Notes.findByIdAndUpdate(
         {
-          user: user.id,
+          _id: note._id,
         },
         {
           $set: {
-            title: title,
-            description: description,
-            tag: tag,
+            title: title ? title : note.title,
+            description: description ? description : note.description,
+            tag: tag ? tag : note.tag,
           },
         }
       );
@@ -67,16 +64,17 @@ module.exports = {
   },
   deletenote: async (req, res) => {
     try {
-      const { userId } = req.params;
+      const { noteId } = req.params;
       const { user } = req.user;
-      const note = await user.findById(userId);
+      console.log(user);
+      const note = await Notes.findById(noteId);
       if (!note) {
-        throw { status: 500, message: 'User does not exist' };
+        throw { status: 500, message: 'note does not exist' };
       }
-      if (note.user.toString() !== user.id) {
+      if (note.user.toString() !== user._id) {
         throw { status: 500, message: 'post does not belong to user' };
       }
-      await Notes.findByIdAndDelete(userId);
+      await Notes.findByIdAndDelete(noteId);
       res.status(200).send('Note deleted successfully');
     } catch (err) {
       console.log(err);
