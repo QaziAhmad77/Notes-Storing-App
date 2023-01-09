@@ -2,6 +2,7 @@
 // mongoose.set('strictQuery', true);
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 const port = process.env.port || 4000;
