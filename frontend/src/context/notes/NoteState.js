@@ -9,7 +9,7 @@ const NoteState = (props) => {
   const getAllNotes = async () => {
     console.log('Adding new note');
     const response = await fetch(`${host}/api/notes/createNote`, {
-      method: 'GET',
+      method: 'GET', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
         'auth-token':
@@ -21,10 +21,11 @@ const NoteState = (props) => {
     console.log(json);
   };
 
+  //Add a Note
   const addNote = async (title, description, tag) => {
     console.log('Adding new note');
     const response = await fetch(`${host}/api/notes/createNote`, {
-      method: 'POST',
+      method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
         'auth-token':
@@ -43,7 +44,7 @@ const NoteState = (props) => {
     };
     setNotes(notes.concat(note));
   };
-
+  // Delete a Note
   const deleteNote = (id) => {
     console.log('Delete note with id  ' + id);
     const newNotes = notes.filter((note) => {
@@ -52,9 +53,10 @@ const NoteState = (props) => {
     setNotes(newNotes);
   };
 
+  // Edit a Note
   const editNote = async (id, title, description, tag) => {
     const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-      method: 'POST',
+      method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
         'auth-token':
