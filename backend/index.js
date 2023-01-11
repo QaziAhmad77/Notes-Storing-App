@@ -18,10 +18,6 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-app.use((req, res) => {
-  return res.status(404).send('Router Not Found');
-});
-
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
@@ -30,3 +26,9 @@ mongoose
   .catch((error) => {
     console.log('Some error while connecting to database', error);
   });
+
+app.use((req, res) => {
+  return res.status(404).send('Router Not Found');
+});
+
+
