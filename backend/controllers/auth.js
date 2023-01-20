@@ -5,15 +5,16 @@ const mongoose = require("mongoose");
 module.exports = {
   signUp: async (req, res) => {
     try {
+      let success = false;
       const { name, email, password } = req.body;
       if (!name || !email || !password) {
-        throw { status: 409, message: "Require fields cannot be empty" };
+        throw { success, status: 409, message: "Require fields cannot be empty" };
       }
       const salt = await bcrypt.genSalt(12);
       const hashedPass = await bcrypt.hash(password, salt);
       const userFound = await Users.findOne({ email });
       if (userFound) {
-        throw { status: 409, message: "Email already exist" };
+        throw { success, status: 409, message: "Email already exist" };
       }
       const user = await Users.create({
         name,
@@ -27,7 +28,8 @@ module.exports = {
         process.env.JWT_SECRET
       );
       console.log(token);
-      res.status(200).send({ token });
+      success = true;
+      res.status(200).send({ success, token });
     } catch (err) {
       console.log(err);
       return res.status(err.status || 500).send(err.message || "Something went wrong");
@@ -35,17 +37,20 @@ module.exports = {
   },
   logIn: async (req, res) => {
     try {
+      let success = false;
       const { email, password } = req.body;
       if (!email || !password) {
-        throw { status: 400, message: "Required fields cannot be empty" };
+        throw { success, status: 400, message: "Required fields cannot be empty" };
       }
       const user = await Users.findOne({ email });
       if (!user) {
-        throw { status: 404, message: "User not found" };
+        success = false;
+        throw { success, status: 404, message: "User not found" };
       }
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        throw { status: 409, message: "Password is incorrect" };
+        success = false;
+        throw { success, status: 409, message: "Password is incorrect" };
       }
       const token = jwt.sign(
         {
@@ -53,7 +58,8 @@ module.exports = {
         },
         process.env.JWT_SECRET
       );
-      res.status(200).send({ token });
+      success = true;
+      res.status(200).send({ success, token });
     } catch (err) {
       console.log(err.message);
       return res.status(err.status || 500).send(err.message || "Something went wrong");
@@ -62,9 +68,9 @@ module.exports = {
   getUser: async (req, res) => {
     try {
       const { user } = req.user;
-      console.log(user)
+      console.log(user);
       let data = await Users.findById(user._id).select("-password");
-      console.log(data)
+      console.log(data);
       res.status(200).send({ data });
     } catch (err) {
       console.log(err);
