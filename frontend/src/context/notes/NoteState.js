@@ -50,7 +50,7 @@ const NoteState = (props) => {
     // eslint-disable-next-line
     const json = response.json();
     const newNotes = notes.filter((note) => {
-      return note._id !== id;
+      return note._id !== id; // agr note._id = id nage hoga to wo is me rahega warna delete hoga
     });
     setNotes(newNotes);
   };
