@@ -15,6 +15,7 @@ module.exports = {
         description,
         tag,
       });
+      console.log(newNote);
       res.status(200).send({ newNote });
     } catch (err) {
       console.log(err);
