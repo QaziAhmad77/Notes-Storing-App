@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 module.exports = async (req, res, next) => {
   try {
     const token = req.header("auth-token");
-    console.log(token, "middleware");
     if (!token) {
       throw { status: 500, message: "Token must be require" };
     }
