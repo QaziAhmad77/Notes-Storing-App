@@ -7,11 +7,8 @@ module.exports = async (req, res, next) => {
     if (!token) {
       throw { status: 500, message: "Token must be require" };
     }
-    console.log("oper");
-    const data = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("middle");
-    req.user = data.user;
-    console.log("Neche");
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = user;
     next();
   } catch (err) {
     console.log(err);
