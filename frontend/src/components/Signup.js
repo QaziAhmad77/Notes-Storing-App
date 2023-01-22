@@ -23,8 +23,8 @@ const Signup = (props) => {
       localStorage.setItem("token", json.token);
       // localStorage.setItem("token", JSON.stringify(data.token));
       // history.push("/");
-      history("/");
       showAlert("Account created successfully", "success");
+      history("/");
     } else {
       showAlert("Invalid Credentials", "danger");
     }
