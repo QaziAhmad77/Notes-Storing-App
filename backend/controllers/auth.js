@@ -27,7 +27,6 @@ module.exports = {
         },
         process.env.JWT_SECRET
       );
-      console.log(token, "token in auth.js");
       success = true;
       res.status(200).send({ success, token });
     } catch (err) {
@@ -68,9 +67,7 @@ module.exports = {
   getUser: async (req, res) => {
     try {
       const { user } = req.user;
-      console.log(user);
       let data = await Users.findById(user._id).select("-password");
-      console.log(data);
       res.status(200).send({ data });
     } catch (err) {
       console.log(err);

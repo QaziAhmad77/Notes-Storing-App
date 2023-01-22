@@ -15,7 +15,6 @@ module.exports = {
         description,
         tag,
       });
-      console.log(newNote);
       res.status(200).send({ newNote });
     } catch (err) {
       console.log(err);
@@ -31,7 +30,6 @@ module.exports = {
       if (!note) {
         throw { status: 500, message: "notes does not exist" };
       }
-      console.log(note.user.toString());
       if (note.user.toString() !== user._id) {
         throw { status: 500, message: "post does not belong to user" };
       }
@@ -56,10 +54,7 @@ module.exports = {
   getAllNotes: async (req, res) => {
     try {
       const { user } = req.user;
-      console.log(user, "User in notes");
-      console.log(user._id, "user id");
       const notes = await Notes.find({ user: user._id });
-      console.log(notes, "notes");
       res.status(200).send(notes);
     } catch (err) {
       console.log(err);
@@ -70,7 +65,6 @@ module.exports = {
     try {
       const { id } = req.params;
       const { user } = req.user;
-      console.log(user);
       const note = await Notes.findById(id);
       if (!note) {
         throw { status: 404, message: "note does not exist" };
