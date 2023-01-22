@@ -35,36 +35,39 @@ const Signup = (props) => {
 
   return (
     <>
-      <div className="container">
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">
-              Name
-            </label>
-            <input type="text" className="form-control" onChange={onChange} id="exampleInputName" name="name" aria-describedby="emailHelp" />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email address
-            </label>
-            <input type="email" className="form-control" onChange={onChange} id="exampleInputEmail1" name="email" aria-describedby="emailHelp" />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input type="password" className="form-control" onChange={onChange} id="password" name="password" minLength={5} required />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="cpasswordc" className="form-label">
-              Confirm Password
-            </label>
-            <input type="password" className="form-control" id="cpassword" name="cpassword" minLength={5} required />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        </form>
+      <div className="container mt-2">
+        <h2>Create your account to use notebook</h2>
+        <div className="container">
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="name" className="form-label">
+                Name
+              </label>
+              <input type="text" className="form-control" onChange={onChange} id="exampleInputName" name="name" aria-describedby="emailHelp" />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">
+                Email address
+              </label>
+              <input type="email" className="form-control" onChange={onChange} id="exampleInputEmail1" name="email" aria-describedby="emailHelp" />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
+              <input type="password" className="form-control" onChange={onChange} id="password" name="password" minLength={5} required />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="cpasswordc" className="form-label">
+                Confirm Password
+              </label>
+              <input type="password" className="form-control" id="cpassword" name="cpassword" minLength={5} required />
+            </div>
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
