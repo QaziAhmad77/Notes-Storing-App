@@ -57,8 +57,10 @@ module.exports = {
     try {
       const { user } = req.user;
       console.log(user, "User in notes");
-      const notes = await Notes.find({ _id: user._id });
-      res.status(200).send({ notes });
+      console.log(user._id, "user id");
+      const notes = await Notes.find({ user: user._id });
+      console.log(notes, "notes");
+      res.status(200).send(notes);
     } catch (err) {
       console.log(err);
       return res.status(err.status || 500).send(err.message || "something went wrong");
@@ -66,17 +68,17 @@ module.exports = {
   },
   deletenote: async (req, res) => {
     try {
-      const { noteId } = req.params;
+      const { id } = req.params;
       const { user } = req.user;
       console.log(user);
-      const note = await Notes.findById(noteId);
+      const note = await Notes.findById(id);
       if (!note) {
-        throw { status: 500, message: "note does not exist" };
+        throw { status: 404, message: "note does not exist" };
       }
       if (note.user.toString() !== user._id) {
-        throw { status: 500, message: "post does not belong to user" };
+        throw { status: 500, message: "note does not belong to user" };
       }
-      await Notes.findByIdAndDelete({ Success: "Note has been deleted", noteId });
+      await Notes.findByIdAndDelete(id);
       res.status(200).send("Note deleted successfully");
     } catch (err) {
       console.log(err);
