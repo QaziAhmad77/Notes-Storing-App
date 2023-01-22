@@ -33,13 +33,14 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag }),
     });
     const note = await response.json();
-    if (Array.isArray(note)) {
-      setNotes((prevNotes) => prevNotes.concat(note));
-    } else {
-      console.log("Error: received non-array data from API");
-    }
-    // const note = await response.json();
-    // // setNotes(notes.concat(note));
+    console.log(note);
+    setNotes(notes.concat(note));
+    // if (Array.isArray(note)) {
+    //   setNotes((prevNotes) => prevNotes.concat(note));
+    // } else {
+    //   console.log("Error: received non-array data from API");
+    // }
+    // setNotes(notes.concat(note));
     // setNotes((notesInitial) => notesInitial.concat(note));
   };
 
