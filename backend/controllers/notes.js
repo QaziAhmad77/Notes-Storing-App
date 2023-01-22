@@ -56,7 +56,8 @@ module.exports = {
   getAllNotes: async (req, res) => {
     try {
       const { user } = req.user;
-      const notes = await Notes.find({ user: user._id });
+      console.log(user, "User in notes");
+      const notes = await Notes.find({ _id: user._id });
       res.status(200).send({ notes });
     } catch (err) {
       console.log(err);
@@ -82,7 +83,7 @@ module.exports = {
       return res.status(err.status || 500).send(err.message || "something went wrong");
     }
   },
-  deleteAllUsers: async (req, res) => {
+  deleteAllNotes: async (req, res) => {
     try {
       await Notes.deleteMany();
       res.status(200).json("All notes has been deleted");

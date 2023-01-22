@@ -27,7 +27,7 @@ module.exports = {
         },
         process.env.JWT_SECRET
       );
-      console.log(token);
+      console.log(token, "token in auth.js");
       success = true;
       res.status(200).send({ success, token });
     } catch (err) {
