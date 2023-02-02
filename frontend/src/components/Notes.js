@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import noteContext from "../context/notes/noteContext";
-import Noteitem from "./Noteitem";
+import NoteItem from "./NoteItem";
 import AddNote from "./AddNote";
 
 const Notes = (props) => {
@@ -88,7 +88,7 @@ const Notes = (props) => {
         <h2>You Notes</h2>
         <div className="container mx-2">{notes.length === 0 && "No notes to display"}</div>
         {notes.map((note) => {
-          return <Noteitem key={note._id} updateNote={updateNote} showAlert={showAlert} note={note} />;
+          return <NoteItem key={note._id} updateNote={updateNote} showAlert={showAlert} note={note} />;
         })}
       </div>
     </>
