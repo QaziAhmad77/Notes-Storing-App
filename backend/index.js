@@ -30,5 +30,5 @@ mongoose
   });
 
 app.use((req, res) => {
-  return res.status(404).send("Router Not Found");
+  return res.status(404).send("Rout Not Found");
 });
